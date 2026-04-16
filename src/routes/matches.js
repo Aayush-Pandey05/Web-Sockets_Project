@@ -63,6 +63,10 @@ matchRouter.post("/", async (req, res) => {
       })
       .returning();
 
+      if(res.app.locals.broadcastMatchCreated){
+        res.app.locals.broadcastMatchCreated(event); // we are broadcasting the newly created match to all connected clients using the broadcast function that we attached to the app.locals in our index.js file when we initialized the web socket server
+      }
+
     return res.status(201).json({ data: event });
   } catch (e) {
     return res
